@@ -72,7 +72,32 @@ for rich results; they cannot drift apart.
    `public/sitemap.xml`.
 3. **Configure mail delivery** (below), or leads are only logged, not sent.
 4. **Self-host the photographs** (below) to remove the third-party request.
-5. Review `CONTENT.md` — every string not written by the client is listed there.
+5. **Retire the leaked Supabase credentials** (see below).
+6. Review `CONTENT.md` — every string not written by the client is listed there.
+
+### Leaked Supabase credentials in git history
+
+A `.env` containing `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` was
+committed in `b6197e9` and deleted again in `ba4a7c2`. Deleting a file does not
+remove it from git history — both values are still readable to anyone with
+access to this repository:
+
+```bash
+git show b6197e9:.env
+```
+
+Impact is limited: the `anon` key is a publishable key, meant to be visible in
+browser code, and it is only as safe as the Row Level Security policies on that
+Supabase project. This site no longer uses Supabase at all — the dependency has
+been removed.
+
+**Recommended:** delete that Supabase project, or at minimum rotate its keys and
+confirm RLS is enabled on every table. If the repository is ever made public,
+purge the file from history (`git filter-repo --path .env --invert-paths`) — note
+that this rewrites history and requires a force push coordinated with everyone
+working on the repo.
+
+`.env` is now in `.gitignore`; use `.env.example` as the template.
 
 ---
 
