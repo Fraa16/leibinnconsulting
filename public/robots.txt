@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Legal pages carry no search value and are marked noindex in the document head.
+Disallow: /impressum
+Disallow: /datenschutz
+
+Sitemap: https://www.leibinn-consulting.de/sitemap.xml

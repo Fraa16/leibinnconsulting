@@ -1,0 +1,15 @@
+{
+  "name": "Leibinn Consulting",
+  "short_name": "Leibinn",
+  "description": "Strukturierte Immobilien- und Steuerstrategien für Unternehmer, Führungskräfte und Privatanleger.",
+  "lang": "de-DE",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F7F7F7",
+  "theme_color": "#1F2841",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
