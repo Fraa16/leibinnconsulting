@@ -111,7 +111,11 @@ function escapeHtml(value: string): string {
 
 function renderEmail(payload: LeadPayload): string {
   const rows: [string, string][] = [
-    ['Name', [clean(payload.firstname), clean(payload.lastname)].filter(Boolean).join(' ') || clean(payload.name)],
+    [
+      'Name',
+      [clean(payload.firstname), clean(payload.lastname)].filter(Boolean).join(' ') ||
+        clean(payload.name),
+    ],
     ['E-Mail', clean(payload.email)],
     ['Anliegen', clean(payload.message) || '—'],
     ['Formular', clean(payload.source) || 'unbekannt'],
@@ -142,9 +146,16 @@ export interface LeadEnv {
  * success flagged `devMode`, so the form is demonstrable before the client's
  * mail credentials exist. It never fails silently.
  */
-export async function processLead(payload: LeadPayload, env: LeadEnv, ip: string): Promise<HandlerResult> {
+export async function processLead(
+  payload: LeadPayload,
+  env: LeadEnv,
+  ip: string,
+): Promise<HandlerResult> {
   if (rateLimited(ip)) {
-    return { status: 429, body: { ok: false, error: 'Zu viele Anfragen. Bitte später erneut versuchen.' } };
+    return {
+      status: 429,
+      body: { ok: false, error: 'Zu viele Anfragen. Bitte später erneut versuchen.' },
+    };
   }
 
   // Silently accept bot submissions: telling them why would help them adapt.

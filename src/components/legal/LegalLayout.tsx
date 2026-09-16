@@ -64,8 +64,8 @@ export function LegalLayout({ title, children, incomplete = true }: LegalLayoutP
               <p className="font-semibold">Diese Seite ist noch nicht vollständig.</p>
               <p className="mt-1">
                 Die gelb markierten Felder müssen vor der Veröffentlichung durch die tatsächlichen
-                Angaben ersetzt werden. Bitte lassen Sie den finalen Text vor dem Livegang
-                rechtlich prüfen — dieser Entwurf ersetzt keine Rechtsberatung.
+                Angaben ersetzt werden. Bitte lassen Sie den finalen Text vor dem Livegang rechtlich
+                prüfen — dieser Entwurf ersetzt keine Rechtsberatung.
               </p>
             </div>
           </div>

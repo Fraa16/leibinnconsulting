@@ -42,7 +42,11 @@ export async function submitLead(payload: LeadRequest): Promise<LeadResponse> {
   }
 
   if (!response.ok) {
-    return { ok: false, error: body.error ?? 'Die Anfrage konnte nicht gesendet werden.', field: body.field };
+    return {
+      ok: false,
+      error: body.error ?? 'Die Anfrage konnte nicht gesendet werden.',
+      field: body.field,
+    };
   }
 
   return body;

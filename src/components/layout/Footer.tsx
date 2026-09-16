@@ -30,7 +30,7 @@ export function Footer() {
           </div>
 
           <nav aria-label="Seitenbereiche">
-            <h2 className="text-2xs font-medium uppercase tracking-eyebrow text-white/45">
+            <h2 className="text-2xs font-medium uppercase tracking-eyebrow text-white/65">
               Navigation
             </h2>
             <ul className="mt-4 space-y-2.5">
@@ -48,7 +48,7 @@ export function Footer() {
           </nav>
 
           <nav aria-label="Rechtliches">
-            <h2 className="text-2xs font-medium uppercase tracking-eyebrow text-white/45">
+            <h2 className="text-2xs font-medium uppercase tracking-eyebrow text-white/65">
               Rechtliches
             </h2>
             <ul className="mt-4 space-y-2.5">
@@ -67,7 +67,9 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/10 py-6">
-          <p className="text-xs text-white/45">{footer.copyright.replace('{year}', String(year))}</p>
+          <p className="text-xs text-white/65">
+            {footer.copyright.replace('{year}', String(year))}
+          </p>
         </div>
       </div>
     </footer>

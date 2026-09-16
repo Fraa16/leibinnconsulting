@@ -18,7 +18,7 @@ export default function NotFoundPage() {
         <div className="text-center">
           <span aria-hidden="true" className="rule-accent mx-auto mb-8" />
 
-          <p className="font-display text-7xl font-semibold text-accent-300">404</p>
+          <p className="font-display text-7xl font-semibold text-accent-600">404</p>
 
           <h1 className="mt-4 font-display text-display-sm font-semibold text-ink-900">
             Diese Seite gibt es nicht.

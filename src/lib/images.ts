@@ -132,8 +132,14 @@ export function resolveAvatar(id: string): ResolvedImage {
     src: localUrl(id, 96, 'jpg'),
     srcSet: widths.map((w) => `${localUrl(id, w, 'jpg')} ${w}w`).join(', '),
     sources: [
-      { type: 'image/avif', srcSet: widths.map((w) => `${localUrl(id, w, 'avif')} ${w}w`).join(', ') },
-      { type: 'image/webp', srcSet: widths.map((w) => `${localUrl(id, w, 'webp')} ${w}w`).join(', ') },
+      {
+        type: 'image/avif',
+        srcSet: widths.map((w) => `${localUrl(id, w, 'avif')} ${w}w`).join(', '),
+      },
+      {
+        type: 'image/webp',
+        srcSet: widths.map((w) => `${localUrl(id, w, 'webp')} ${w}w`).join(', '),
+      },
     ],
     aspect: 1,
   };

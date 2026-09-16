@@ -39,9 +39,11 @@ export function ValuePropositionSection() {
                     />
 
                     <div className="flex items-baseline gap-4">
+                      {/* accent-600/700, not 300/500: the lighter tints read at
+                          1.95:1 on white and fail even the large-text threshold. */}
                       <span
                         aria-hidden="true"
-                        className="font-display text-2xl font-semibold text-accent-300 transition-colors duration-300 group-hover:text-accent-500"
+                        className="font-display text-2xl font-semibold text-accent-600 transition-colors duration-300 group-hover:text-accent-700"
                       >
                         {String(index + 1).padStart(2, '0')}
                       </span>
@@ -74,7 +76,7 @@ export function ValuePropositionSection() {
                     className="aspect-[3/4] w-full"
                   />
                 </div>
-                <figcaption className="mt-4 text-center text-xs text-ink-500">
+                <figcaption className="mt-4 text-center text-xs text-ink-600">
                   {valueSection.portraitCaption}
                 </figcaption>
               </figure>

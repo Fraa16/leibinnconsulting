@@ -15,7 +15,10 @@ interface Options {
  * CSS variable rather than React state, so the animation runs without a render,
  * and it only listens while the element is on screen.
  */
-export function useScrollProgress<T extends HTMLElement>({ start = 0.85, end = 0.55 }: Options = {}) {
+export function useScrollProgress<T extends HTMLElement>({
+  start = 0.85,
+  end = 0.55,
+}: Options = {}) {
   const ref = useRef<T>(null);
 
   useEffect(() => {

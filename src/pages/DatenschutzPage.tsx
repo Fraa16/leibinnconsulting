@@ -59,8 +59,8 @@ export default function DatenschutzPage() {
         <p>
           Diese Website wird bei der Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA,
           gehostet. Beim Aufruf der Website verarbeitet der Hosting-Anbieter technisch notwendige
-          Zugriffsdaten (IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Seite,
-          übertragene Datenmenge, Browsertyp und Betriebssystem, Referrer-URL).
+          Zugriffsdaten (IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Seite, übertragene
+          Datenmenge, Browsertyp und Betriebssystem, Referrer-URL).
         </p>
         <p>
           Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt im
@@ -86,8 +86,8 @@ export default function DatenschutzPage() {
           Widerruf erfolgten Verarbeitung bleibt unberührt.
         </p>
         <p>
-          Zur Zustellung der Formularnachrichten setzen wir den E-Mail-Dienst Resend
-          (Plus Five Five, Inc., 2261 Market Street #5039, San Francisco, CA 94114, USA) als
+          Zur Zustellung der Formularnachrichten setzen wir den E-Mail-Dienst Resend (Plus Five
+          Five, Inc., 2261 Market Street #5039, San Francisco, CA 94114, USA) als
           Auftragsverarbeiter ein. Die Übermittlung in die USA wird auf die
           EU-Standardvertragsklauseln gestützt.{' '}
           <Todo>Auftragsverarbeitungsvertrag mit Resend abschließen und hier bestätigen</Todo>
@@ -101,8 +101,8 @@ export default function DatenschutzPage() {
       <LegalSection title="5. Cookies und Reichweitenmessung">
         <p>
           Diese Website setzt keine Cookies zu Analyse-, Tracking- oder Marketingzwecken ein. Es
-          werden keine Dienste zur Reichweitenmessung oder Profilbildung verwendet. Aus diesem
-          Grund ist kein Einwilligungsbanner erforderlich.
+          werden keine Dienste zur Reichweitenmessung oder Profilbildung verwendet. Aus diesem Grund
+          ist kein Einwilligungsbanner erforderlich.
         </p>
         <p className="text-ink-500">
           Hinweis: Sollten später Webanalyse, Remarketing oder eingebettete Dienste (etwa Google
@@ -158,19 +158,18 @@ export default function DatenschutzPage() {
 
       <LegalSection title={USE_LOCAL_PHOTOS ? '8. Beschwerderecht' : '9. Beschwerderecht'}>
         <p>
-          Unbeschadet anderweitiger Rechtsbehelfe steht Ihnen nach Art. 77 DSGVO ein
-          Beschwerderecht bei einer Aufsichtsbehörde zu, insbesondere in dem Mitgliedstaat Ihres
-          Aufenthaltsorts, Ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes. Zuständig
-          ist für uns: <Todo>zuständige Landesdatenschutzbehörde</Todo>
+          Unbeschadet anderweitiger Rechtsbehelfe steht Ihnen nach Art. 77 DSGVO ein Beschwerderecht
+          bei einer Aufsichtsbehörde zu, insbesondere in dem Mitgliedstaat Ihres Aufenthaltsorts,
+          Ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes. Zuständig ist für uns:{' '}
+          <Todo>zuständige Landesdatenschutzbehörde</Todo>
         </p>
       </LegalSection>
 
       <LegalSection title={USE_LOCAL_PHOTOS ? '9. Aktualität' : '10. Aktualität'}>
         <p>
-          Diese Datenschutzerklärung ist aktuell gültig und hat den Stand{' '}
-          <Todo>Monat / Jahr</Todo>. Durch die Weiterentwicklung unserer Website oder aufgrund
-          geänderter gesetzlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung zu
-          ändern.
+          Diese Datenschutzerklärung ist aktuell gültig und hat den Stand <Todo>Monat / Jahr</Todo>.
+          Durch die Weiterentwicklung unserer Website oder aufgrund geänderter gesetzlicher Vorgaben
+          kann es notwendig werden, diese Datenschutzerklärung zu ändern.
         </p>
       </LegalSection>
     </LegalLayout>

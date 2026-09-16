@@ -23,7 +23,13 @@ interface ConsentCheckboxProps {
  * The checkbox is deliberately unchecked by default: a pre-ticked box is not
  * valid consent (EuGH C-673/17, "Planet49").
  */
-export function ConsentCheckbox({ id, checked, onChange, error, tone = 'light' }: ConsentCheckboxProps) {
+export function ConsentCheckbox({
+  id,
+  checked,
+  onChange,
+  error,
+  tone = 'light',
+}: ConsentCheckboxProps) {
   const errorId = `${id}-error`;
   const dark = tone === 'dark';
 
@@ -49,7 +55,10 @@ export function ConsentCheckbox({ id, checked, onChange, error, tone = 'light' }
 
         <label
           htmlFor={id}
-          className={cn('cursor-pointer text-sm leading-relaxed', dark ? 'text-white/85' : 'text-ink-600')}
+          className={cn(
+            'cursor-pointer text-sm leading-relaxed',
+            dark ? 'text-white/85' : 'text-ink-600',
+          )}
         >
           {formMessages.consentLabel}{' '}
           <Link
@@ -67,7 +76,13 @@ export function ConsentCheckbox({ id, checked, onChange, error, tone = 'light' }
       </div>
 
       {error && (
-        <p id={errorId} className={cn('mt-1.5 flex items-center gap-1.5 text-sm', dark ? 'text-red-200' : 'text-red-600')}>
+        <p
+          id={errorId}
+          className={cn(
+            'mt-1.5 flex items-center gap-1.5 text-sm',
+            dark ? 'text-red-200' : 'text-red-600',
+          )}
+        >
           <AlertCircle aria-hidden="true" className="h-4 w-4 flex-shrink-0" />
           {error}
         </p>

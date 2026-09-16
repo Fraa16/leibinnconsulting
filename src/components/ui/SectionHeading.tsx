@@ -14,7 +14,9 @@ export function Eyebrow({ children, className, tone = 'ink' }: EyebrowProps) {
     <p
       className={cn(
         'text-2xs font-medium uppercase tracking-eyebrow',
-        tone === 'ink' ? 'text-ink-500' : 'text-white/75',
+        /* ink-600, not ink-500: eyebrows also sit on the paper-600 panels, where
+           ink-500 measures 4.09:1 and fails AA for text this size. */
+        tone === 'ink' ? 'text-ink-600' : 'text-white/75',
         className,
       )}
     >

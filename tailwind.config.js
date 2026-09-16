@@ -83,7 +83,14 @@ export default {
 
       fontFamily: {
         display: ['"Playfair Display Variable"', 'Georgia', 'Times New Roman', 'serif'],
-        sans: ['"Inter Variable"', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: [
+          '"Inter Variable"',
+          'system-ui',
+          '-apple-system',
+          'Segoe UI',
+          'Roboto',
+          'sans-serif',
+        ],
       },
 
       /* 1.250 major third, 16px base. Tracking tightens as size grows. */
@@ -107,9 +114,18 @@ export default {
          * "Immobilienvermögen." are ~19 characters and overflowed the viewport
          * when the floor was higher.
          */
-        'display-sm': ['clamp(1.625rem, 1.1rem + 2.2vw, 2.4414rem)', { lineHeight: '1.18', letterSpacing: '-0.02em' }],
-        'display-md': ['clamp(1.75rem, 1.05rem + 3.2vw, 3.0518rem)', { lineHeight: '1.14', letterSpacing: '-0.022em' }],
-        'display-lg': ['clamp(1.9rem, 0.95rem + 4.6vw, 3.8147rem)', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
+        'display-sm': [
+          'clamp(1.625rem, 1.1rem + 2.2vw, 2.4414rem)',
+          { lineHeight: '1.18', letterSpacing: '-0.02em' },
+        ],
+        'display-md': [
+          'clamp(1.75rem, 1.05rem + 3.2vw, 3.0518rem)',
+          { lineHeight: '1.14', letterSpacing: '-0.022em' },
+        ],
+        'display-lg': [
+          'clamp(1.9rem, 0.95rem + 4.6vw, 3.8147rem)',
+          { lineHeight: '1.1', letterSpacing: '-0.025em' },
+        ],
       },
 
       letterSpacing: {

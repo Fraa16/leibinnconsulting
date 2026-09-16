@@ -68,7 +68,8 @@ export function Field({ id, label, error, tone = 'light', className, ...rest }: 
   );
 }
 
-type TextAreaProps = BaseProps & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'id' | 'className'>;
+type TextAreaProps = BaseProps &
+  Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'id' | 'className'>;
 
 export function TextAreaField({
   id,

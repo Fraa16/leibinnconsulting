@@ -59,8 +59,7 @@ export default function ImpressumPage() {
 
       <LegalSection title="Umsatzsteuer-Identifikationsnummer">
         <p>
-          Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:{' '}
-          <Todo>USt-IdNr.</Todo>
+          Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: <Todo>USt-IdNr.</Todo>
         </p>
       </LegalSection>
 

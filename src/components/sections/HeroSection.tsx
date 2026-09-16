@@ -34,7 +34,7 @@ export function HeroSection() {
            */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-b from-paper-200/55 via-paper-200/80 to-paper-200/92"
+            className="to-paper-200/92 absolute inset-0 bg-gradient-to-b from-paper-200/55 via-paper-200/80"
           />
           {/* Fades the photograph into the next section. Must stay below the
               z-10 content layer — at z-20 it painted over the CTA and washed it
@@ -72,7 +72,10 @@ export function HeroSection() {
                     variant="scale"
                     className="inline-flex items-center gap-2 rounded-full border border-accent-300/60 bg-white/75 px-4 py-2 text-sm font-medium text-ink-700 backdrop-blur-sm"
                   >
-                    <Check aria-hidden="true" className="h-3.5 w-3.5 flex-shrink-0 text-primary-600" />
+                    <Check
+                      aria-hidden="true"
+                      className="h-3.5 w-3.5 flex-shrink-0 text-primary-600"
+                    />
                     {label}
                   </Reveal>
                 ))}

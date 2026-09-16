@@ -41,22 +41,18 @@ export function ProcessSection() {
           <ol className="grid gap-10 md:grid-cols-2 md:gap-x-10 md:gap-y-14 lg:grid-cols-4">
             {processSteps.map((step, index) => (
               <Reveal key={step.stepNumber} as="li" index={index} className="relative">
-                {/* Node on the track. */}
-                <span
-                  aria-hidden="true"
-                  className="relative z-10 hidden h-9 w-9 items-center justify-center rounded-full border border-accent-300 bg-paper-300 text-xs font-semibold text-accent-700 lg:flex"
-                >
-                  {String(step.stepNumber).padStart(2, '0')}
-                </span>
-
                 {/*
+                 * Node on the track, shown at every breakpoint.
+                 *
                  * The original rendered a 280–320px ghost numeral with a
                  * Tailwind gradient class and an inline style gradient fighting
-                 * over the same element. One treatment, applied once.
+                 * over the same element. A large tinted numeral also cannot
+                 * carry enough contrast to be legible, so this is one readable
+                 * treatment instead of two.
                  */}
                 <span
                   aria-hidden="true"
-                  className="font-display text-5xl font-semibold text-accent-300/70 lg:hidden"
+                  className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full border border-accent-300 bg-paper-300 text-xs font-semibold text-accent-700"
                 >
                   {String(step.stepNumber).padStart(2, '0')}
                 </span>
@@ -64,7 +60,9 @@ export function ProcessSection() {
                 <h3 className="mt-5 font-display text-xl font-semibold leading-snug text-ink-900 md:text-2xl">
                   {step.title}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink-600 md:text-base">{step.text}</p>
+                <p className="mt-3 text-sm leading-relaxed text-ink-600 md:text-base">
+                  {step.text}
+                </p>
               </Reveal>
             ))}
           </ol>

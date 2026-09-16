@@ -74,7 +74,10 @@ export function useLeadForm({ source, fields }: Options) {
   const blurField = useCallback(
     (name: string) => {
       setTouched((previous) => ({ ...previous, [name]: true }));
-      setErrors((previous) => ({ ...previous, [name]: validateField(values[name] ?? '', fields[name]) }));
+      setErrors((previous) => ({
+        ...previous,
+        [name]: validateField(values[name] ?? '', fields[name]),
+      }));
     },
     [fields, values],
   );

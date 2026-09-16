@@ -24,13 +24,19 @@ export function BrandIntroSection() {
             </Reveal>
 
             <Reveal index={1}>
-              <p className="mt-6 text-measure text-base leading-relaxed text-ink-600 md:text-lg">
+              <p className="text-measure mt-6 text-base leading-relaxed text-ink-600 md:text-lg">
                 {brandIntro.body}
               </p>
             </Reveal>
 
             <Reveal index={2}>
-              <ButtonLink href={brandIntro.cta.href} variant="secondary" size="lg" withArrow className="mt-9">
+              <ButtonLink
+                href={brandIntro.cta.href}
+                variant="secondary"
+                size="lg"
+                withArrow
+                className="mt-9"
+              >
                 {brandIntro.cta.label}
               </ButtonLink>
             </Reveal>

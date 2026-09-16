@@ -154,7 +154,9 @@ export function ProblemSection() {
                   <ProblemCard
                     problem={problem}
                     isOpen={openId === problem.id}
-                    onToggle={() => setOpenId((current) => (current === problem.id ? null : problem.id))}
+                    onToggle={() =>
+                      setOpenId((current) => (current === problem.id ? null : problem.id))
+                    }
                   />
                 </Reveal>
               ))}

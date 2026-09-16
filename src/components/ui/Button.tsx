@@ -62,11 +62,7 @@ export function Button({
   ...rest
 }: ButtonProps) {
   return (
-    <button
-      type={type}
-      className={cn(base, variants[variant], sizes[size], className)}
-      {...rest}
-    >
+    <button type={type} className={cn(base, variants[variant], sizes[size], className)} {...rest}>
       {children}
       {withArrow && <Arrow />}
     </button>

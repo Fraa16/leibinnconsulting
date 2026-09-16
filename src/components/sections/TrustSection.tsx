@@ -35,7 +35,10 @@ export function TrustSection() {
                   {trustAuthority.title}
                 </h3>
                 {trustAuthority.paragraphs.map((paragraph) => (
-                  <p key={paragraph.slice(0, 32)} className="text-sm leading-relaxed text-ink-600 md:text-base">
+                  <p
+                    key={paragraph.slice(0, 32)}
+                    className="text-sm leading-relaxed text-ink-600 md:text-base"
+                  >
                     {paragraph}
                   </p>
                 ))}
@@ -51,13 +54,19 @@ export function TrustSection() {
                   <Card
                     elevation="panel"
                     interactive
-                    className={wide ? 'flex h-full items-start gap-5 p-6 md:p-8' : 'flex h-full flex-col gap-4 p-6 md:p-8'}
+                    className={
+                      wide
+                        ? 'flex h-full items-start gap-5 p-6 md:p-8'
+                        : 'flex h-full flex-col gap-4 p-6 md:p-8'
+                    }
                   >
                     <IconBadge>
                       <Icon aria-hidden="true" className="h-5 w-5" strokeWidth={1.75} />
                     </IconBadge>
                     <div className={wide ? 'flex-1' : undefined}>
-                      <h3 className="text-base font-semibold text-ink-900 md:text-lg">{card.title}</h3>
+                      <h3 className="text-base font-semibold text-ink-900 md:text-lg">
+                        {card.title}
+                      </h3>
                       <p className="mt-2 text-sm leading-relaxed text-ink-600 md:text-base">
                         {card.text}
                       </p>

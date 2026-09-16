@@ -74,7 +74,11 @@ export function Header({ minimal = false }: HeaderProps) {
             : 'border-white/40 bg-white/70 shadow-card backdrop-blur-sm',
         )}
       >
-        <Link to="/" className="flex-shrink-0 rounded-md" aria-label={`${site.name} — zur Startseite`}>
+        <Link
+          to="/"
+          className="flex-shrink-0 rounded-md"
+          aria-label={`${site.name} — zur Startseite`}
+        >
           <img src={logoDark} alt={site.name} width={1416} height={232} className="h-7 w-auto" />
         </Link>
 
