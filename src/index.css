@@ -1,7 +1,288 @@
+/*
+ * Fonts are self-hosted (@fontsource), so no visitor IP reaches Google.
+ * Only the subsets a page actually uses are downloaded: each face is split by
+ * unicode-range, and German needs nothing beyond Latin.
+ */
+@import '@fontsource-variable/host-grotesk/wght.css';
+@import '@fontsource-variable/host-grotesk/wght-italic.css';
+@import '@fontsource/geist-mono/latin-400.css';
+@import '@fontsource/geist-mono/latin-500.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Anchors land below the floating header. */
+    scroll-padding-top: 100px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /*
+   * The design sets line-height only where it means it and lets everything
+   * else fall back to the font's own `normal`. Preflight's 1.5 would add a
+   * few pixels to every unset line, so it is reset here.
+   */
+  html,
+  body {
+    line-height: normal;
+  }
+
+  body {
+    @apply bg-navy-950 font-sans text-white antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 { text-wrap: balance; }
+  p, blockquote { text-wrap: pretty; }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+  }
+
+  a:hover { color: #D6AE84; }
+
+  input[type='range'] {
+    cursor: pointer;
+    accent-color: #B8875A;
+  }
+
+  ::selection {
+    background: #B8875A;
+    color: #08111F;
+  }
+
+  ::placeholder { color: #8C919A; }
+
+  :focus-visible {
+    outline: 2px solid #D6AE84;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  input, textarea, select, button {
+    font: inherit;
+    letter-spacing: inherit;
+  }
+
+  /*
+   * Preflight's `[hidden] { display: none }` lives in this same layer, so any
+   * display utility on the element would win. Forcing it keeps a closed menu
+   * closed; `until-found` is spared so find-in-page still works.
+   */
+  [hidden]:not([hidden='until-found']) {
+    display: none !important;
+  }
+}
+
+@layer components {
+  /* ── Layout ───────────────────────────────────────────────────────────── */
+
+  .shell {
+    margin-inline: auto;
+    max-width: 1320px;
+    padding-inline: clamp(20px, 4.5vw, 64px);
+  }
+
+  /* Dark sections are full-bleed on the navy page background. */
+  .section-dark {
+    padding-block: clamp(80px, 10vw, 144px);
+  }
+
+  /* Light sections are inset ivory panels with rounded corners. */
+  .panel-light {
+    margin-inline: clamp(8px, 1.2vw, 16px);
+    border-radius: clamp(20px, 2.4vw, 32px);
+    padding-block: clamp(72px, 9vw, 128px);
+    background: #F4F2ED;
+    color: #0D1A2D;
+  }
+
+  /* Eyebrow + H2 on the left, lead on the right, aligned to the bottom. */
+  .section-head {
+    display: grid;
+    gap: 28px clamp(40px, 6vw, 96px);
+    align-items: end;
+  }
+
+  @media (min-width: 1000px) {
+    .section-head { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  .section-body { margin-top: clamp(48px, 6vw, 72px); }
+
+  /* ── Type ─────────────────────────────────────────────────────────────── */
+
+  .t-h1 {
+    font-weight: 400;
+    font-size: clamp(46px, 6vw, 90px);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+
+  .t-h2 {
+    font-weight: 400;
+    font-size: clamp(36px, 4.4vw, 62px);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .t-h2-xl {
+    font-weight: 400;
+    font-size: clamp(38px, 4.8vw, 68px);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+
+  /* The italic accent inside H1/H2. Colour follows the surface. */
+  .t-accent {
+    font-style: italic;
+    font-weight: 300;
+    color: #D6AE84;
+  }
+
+  .panel-light .t-accent,
+  .on-light .t-accent { color: #8A5E36; }
+
+  .t-lead {
+    max-width: 34em;
+    font-size: 18px;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+
+  /* Mono caps preceded by a short rule. */
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    content: '';
+    flex: none;
+    width: 22px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  /* Small mono caps for card labels and captions. */
+  .label {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  /* ── Buttons ──────────────────────────────────────────────────────────── */
+
+  .btn {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 999px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .btn-copper { background: #B8875A; color: #08111F; }
+  .btn-copper:hover { background: #D6AE84; color: #08111F; }
+
+  .btn-ink { background: #0D1A2D; color: #fff; }
+  .btn-ink:hover { background: #B8875A; color: #08111F; }
+
+  .btn-outline {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-weight: 500;
+  }
+  .btn-outline:hover { border-color: #fff; color: #fff; }
+
+  /* ── Motion ───────────────────────────────────────────────────────────── */
+
+  /*
+   * One IntersectionObserver per block (`useReveal`) adds `.is-revealed`;
+   * the block and any `.a-rise` children fade up, each delayed by its `--d`.
+   * Switched off entirely under prefers-reduced-motion below.
+   */
+  .a-rise {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    transition:
+      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--d, 0ms);
+  }
+
+  .a-rise.is-revealed,
+  .is-revealed .a-rise {
+    opacity: 1;
+    transform: none;
+  }
+
+  /*
+   * FAQ panel. Height cannot animate to `auto`, so the panel is a one-row grid
+   * going from 0fr to 1fr. `visibility` keeps a closed answer out of the tab
+   * order and the accessibility tree without cutting the collapse short.
+   */
+  .acc-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition:
+      grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0s linear 0.35s;
+  }
+
+  .acc-panel[data-open='true'] {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition:
+      grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0s linear 0s;
+  }
+
+  .acc-panel > div {
+    min-height: 0;
+    overflow: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .a-rise {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
