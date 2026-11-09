@@ -65,7 +65,7 @@ const html = `<!doctype html>
     <div class="eyebrow">Immobilien &amp; Steuern</div>
     <h1>Verwandeln Sie Steuerlast in <em>bleibendes Vermögen.</em></h1>
   </div>
-  <div class="cta"><span class="pill">Kostenloses Erstgespräch</span><span>15 Min · mit Cedrik Leibinn</span></div>
+  <div class="cta"><span class="pill">Kostenloses Erstgespräch</span><span>60 Min · mit Cedrik Leibinn</span></div>
 </body></html>`;
 
 // Loaded from a file:// page, because about:blank may not read local fonts and photos.

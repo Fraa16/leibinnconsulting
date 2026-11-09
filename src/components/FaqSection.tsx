@@ -6,7 +6,7 @@ import { cn } from '../lib/cn';
 const FAQS = [
   {
     q: 'Wie läuft das Erstgespräch ab?',
-    a: 'In rund 15 Minuten besprechen wir Ihre Ausgangslage: Einkommen, steuerliche Situation, Ziele und Zeithorizont. Danach wissen Sie, ob eine Immobilienstrategie für Sie sinnvoll ist. Unverbindlich und ohne Verkaufsdruck.',
+    a: 'In rund 60 Minuten besprechen wir Ihre Ausgangslage: Einkommen, steuerliche Situation, Ziele und Zeithorizont. Danach wissen Sie, ob eine Immobilienstrategie für Sie sinnvoll ist. Unverbindlich und ohne Verkaufsdruck.',
   },
   {
     q: 'Wie viel Eigenkapital benötige ich?',

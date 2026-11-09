@@ -46,14 +46,11 @@ node scripts/shoot-section.mjs out/ 1440 "#rechner" "#faq=faq"
 
 ## Before this goes live
 
-1. **Calendly.** Set `VITE_CALENDLY_URL` on the host (e.g.
-   `https://calendly.com/<account>/erstgespraech`). Until it is set, the booking
-   card shows the design's **mock calendar, which sends and stores nothing**:
-   a visitor who "books" there is told the slot is reserved, but no one is
-   notified. Do not launch without the URL. Once set, the card shows a
-   click-to-load consent step; nothing is requested from Calendly before the
-   click. Styling is passed as URL parameters (copper `B8875A`, ink `0D1A2D`,
-   white background).
+1. **Calendly.** The booking card loads the shared 60-minute event
+   (`https://calendly.com/beratung-leibinn-consulting/60min`, the same link on
+   every Leibinn site) behind a click-to-load consent step; nothing is requested
+   from Calendly before the click. `VITE_CALENDLY_URL` can override it. Styling is
+   passed as URL parameters (copper `B8875A`, ink `0D1A2D`, white background).
 2. **Tax adviser sign-off** on the calculator model (`src/lib/calculator.ts`)
    and every figure that comes from it (hero card, Rechner, Ablauf step 03).
    The model is implemented exactly as the design handoff specifies; the
@@ -66,10 +63,10 @@ node scripts/shoot-section.mjs out/ 1440 "#rechner" "#faq=faq"
    `src/components/StimmenSection.tsx`. Self-hosted files keep the page free of
    third-party embeds. Confirm in writing that the three clients agreed to be
    quoted with name, role and photo.
-5. **Impressum and Datenschutz.** Both are scaffolding: every `[PLATZHALTER]`
-   needs real data and a lawyer's review. The Datenschutz page now has a
-   Calendly section (fill in its placeholders) and no longer mentions Google
-   Fonts or the old contact form, because neither exists any more.
+5. **Datenschutz.** The Impressum is copied 1:1 from the main website (all
+   Leibinn sites share it). The Datenschutz page is still scaffolding: it gets
+   aligned with the main site's text once the shared services are decided, then
+   needs a lawyer's review.
 6. **Image licence.** `ffm-towers.jpg` (Situation section) is from Unsplash.
    Check the licence and whether a credit is wanted.
 7. **Production domain.** `https://leibinn-consulting.de` is assumed in

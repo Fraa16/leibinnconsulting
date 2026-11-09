@@ -1,122 +1,112 @@
-import LegalLayout, { LegalBlock, Placeholder } from '../components/LegalLayout';
+import LegalLayout, { LegalBlock } from '../components/LegalLayout';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
+
+/*
+ * Copied 1:1 from the main website (leibinn-consulting.de/impressum).
+ * All Leibinn sites share this Impressum: change it there first, then here.
+ */
+const INTRO = 'Anbieterangaben, Zulassungen und Registereintrag von Leibinn Consulting auf einen Blick.';
 
 export default function ImpressumPage() {
   useDocumentMeta({
     title: 'Impressum | Leibinn Consulting',
-    description: 'Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG).',
+    description: INTRO,
     path: '/impressum',
     noindex: true,
   });
 
   return (
-    <LegalLayout title="Impressum" intro="Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG).">
-      <LegalBlock heading="Diensteanbieter">
+    <LegalLayout title="Impressum" intro={INTRO} draft={false}>
+      <LegalBlock heading="Angaben gemäß § 5 DDG">
         <p>
-          <Placeholder>Vollständiger Firmenname inkl. Rechtsform</Placeholder>
+          Leibinn Consulting / Cedrik Robin Leibinn
           <br />
-          <Placeholder>Straße und Hausnummer</Placeholder>
+          Konrad-Zuse-Straße 98
           <br />
-          <Placeholder>PLZ und Ort</Placeholder>
-          <br />
-          <Placeholder>Land</Placeholder>
+          71034 Böblingen
         </p>
+        <p>
+          Telefon: <a href="tel:+4917634529336">+49 176 34529336</a>
+          <br />
+          E-Mail: <a href="mailto:beratung@leibinn-consulting.de">beratung@leibinn-consulting.de</a>
+        </p>
+        <p>Geschäftsführung: Cedrik Robin Leibinn</p>
       </LegalBlock>
 
-      <LegalBlock heading="Vertreten durch">
-        <p>
-          <Placeholder>Name der vertretungsberechtigten Person</Placeholder>
-        </p>
+      <LegalBlock heading="Inhaltlich verantwortlich i.S.d. § 18 Abs. 2 MStV">
+        <p>Cedrik Robin Leibinn (Anschrift wie oben)</p>
       </LegalBlock>
 
-      <LegalBlock heading="Kontakt">
+      <LegalBlock heading="Rechtliche Informationen">
         <p>
-          Telefon: <Placeholder>Telefonnummer</Placeholder>
+          Erlaubnis: nach § 34d Abs. 1 Gewerbeordnung (Versicherungsmakler)
           <br />
-          E-Mail: <Placeholder>E-Mail-Adresse</Placeholder>
-        </p>
-      </LegalBlock>
-
-      <LegalBlock heading="Registereintrag">
-        <p>
-          Registergericht: <Placeholder>Amtsgericht</Placeholder>
+          Erlaubnis: nach § 34c Abs. 1 Gewerbeordnung (Immobilienmakler)
           <br />
-          Registernummer: <Placeholder>HRB-Nummer</Placeholder>
-        </p>
-        <p className="text-stone-subtle">
-          Entfällt, sofern kein Eintrag im Handels-, Vereins-, Partnerschafts- oder
-          Genossenschaftsregister besteht.
-        </p>
-      </LegalBlock>
-
-      <LegalBlock heading="Umsatzsteuer-Identifikationsnummer">
-        <p>
-          Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
-          <br />
-          <Placeholder>USt-IdNr.</Placeholder>
-        </p>
-      </LegalBlock>
-
-      <LegalBlock heading="Redaktionell verantwortlich">
-        <p>
-          <Placeholder>Name</Placeholder>
-          <br />
-          <Placeholder>Anschrift, falls abweichend</Placeholder>
-        </p>
-      </LegalBlock>
-
-      <LegalBlock heading="Berufsrechtliche Angaben">
-        <p>
-          Sofern eine erlaubnispflichtige Tätigkeit ausgeübt wird (etwa als
-          Versicherungsvermittler oder -berater nach § 34 d GewO), sind hier zusätzlich
-          Berufsbezeichnung, zuständige Aufsichtsbehörde, Registernummer im
-          Vermittlerregister sowie die berufsrechtlichen Regelungen anzugeben.
+          Aufsichtsbehörde: Industrie- und Handelskammer Region Stuttgart, Jägerstraße 30, 70174 Stuttgart
         </p>
         <p>
-          <Placeholder>Berufsbezeichnung und verleihender Staat</Placeholder>
-          <br />
-          <Placeholder>Zuständige Aufsichts-/Erlaubnisbehörde</Placeholder>
-          <br />
-          <Placeholder>Registernummer</Placeholder>
-        </p>
-      </LegalBlock>
-
-      <LegalBlock heading="EU-Streitschlichtung">
-        <p>
-          Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS)
-          bereit: <a href="https://ec.europa.eu/consumers/odr/" rel="noopener noreferrer" target="_blank">
-            https://ec.europa.eu/consumers/odr/
+          Vermittlerregister:{' '}
+          <a href="https://www.vermittlerregister.info" target="_blank" rel="noopener noreferrer">
+            www.vermittlerregister.info
           </a>
-        </p>
-        <p>
-          Wir sind <Placeholder>nicht bereit / bereit</Placeholder>, an einem
-          Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+          <br />
+          Registrierungs-Nr.: D-LLF9-5XQCE-01
         </p>
       </LegalBlock>
 
-      <LegalBlock heading="Haftung für Inhalte">
+      <LegalBlock heading="Streitbeilegung">
         <p>
-          Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten
-          nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir als
-          Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde
-          Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige
-          Tätigkeit hinweisen.
+          Beschwerdeverfahren via Online-Streitbeilegung für Verbraucher (OS):{' '}
+          <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">
+            ec.europa.eu/consumers/odr
+          </a>
+          . Wir sind zur Teilnahme am Streitschlichtungsverfahren verpflichtet. Eine Liste mit den Kontaktdaten der
+          anerkannten Streitschlichtungsstellen finden Sie unter der angegebenen Website.
         </p>
       </LegalBlock>
 
-      <LegalBlock heading="Haftung für Links">
+      <LegalBlock heading="Berufsbezeichnung und Berufskammer">
         <p>
-          Unser Angebot enthält gegebenenfalls Links zu externen Websites Dritter, auf deren
-          Inhalte wir keinen Einfluss haben. Für die Inhalte der verlinkten Seiten ist stets der
-          jeweilige Anbieter oder Betreiber verantwortlich.
+          Berufsbezeichnungen: Versicherungsmakler (Erlaubnis nach § 34d Abs. 1 Gewerbeordnung) und Immobilienmakler
+          (Erlaubnis nach § 34c Abs. 1 Gewerbeordnung), Bundesrepublik Deutschland
+          <br />
+          Zuständige Berufskammer: Industrie- und Handelskammer Region Stuttgart, Jägerstraße 30, 70174 Stuttgart
         </p>
       </LegalBlock>
 
-      <LegalBlock heading="Urheberrecht">
+      <LegalBlock heading="Berufsrechtliche Regelungen">
+        <p>Die berufsrechtlichen Regelungen umfassen:</p>
+        <ul>
+          <li>§ 34d Gewerbeordnung (GewO)</li>
+          <li>Verordnung über die Versicherungsvermittlung und -beratung (VersVermV)</li>
+          <li>§ 34c Gewerbeordnung (GewO)</li>
+          <li>Makler- und Bauträgerverordnung (MaBV)</li>
+        </ul>
         <p>
-          Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten
-          unterliegen dem deutschen Urheberrecht. Beiträge Dritter sind als solche
-          gekennzeichnet.
+          Diese Regelungen können auf der Website{' '}
+          <a href="https://www.gesetze-im-internet.de" target="_blank" rel="noopener noreferrer">
+            www.gesetze-im-internet.de
+          </a>{' '}
+          eingesehen werden.
+        </p>
+      </LegalBlock>
+
+      <LegalBlock heading="Nachhaltigkeitsrisiken">
+        <p>
+          Definition: Nachhaltigkeitsrisiken (ESG-Risiken) sind Ereignisse oder Bedingungen aus den Bereichen Umwelt,
+          Soziales und Unternehmensführung, die negative Auswirkungen auf den Wert von Investitionen haben können.
+        </p>
+        <p>Beispiele:</p>
+        <ul>
+          <li>Umwelt: Extremwetterereignisse durch den Klimawandel</li>
+          <li>Soziales: Nichteinhaltung arbeitsrechtlicher Standards</li>
+          <li>Unternehmensführung: Korruption oder mangelnde Steuerehrlichkeit</li>
+        </ul>
+        <p>
+          Vergütung und Nachhaltigkeitsfaktoren: Die Vergütung für die Vermittlung von Finanzprodukten wird grundsätzlich
+          nicht durch Nachhaltigkeitsrisiken beeinflusst. Anbieter, die Nachhaltigkeitsrisiken berücksichtigen, könnten
+          eine höhere Vergütung bieten, sofern dies den Kundeninteressen nicht widerspricht.
         </p>
       </LegalBlock>
     </LegalLayout>

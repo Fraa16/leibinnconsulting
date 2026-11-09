@@ -9,7 +9,7 @@ const STATS = [
   { value: '55+', label: 'Mandanten betreut' },
   { value: '§ 34c', label: 'IHK-Erlaubnis Immobilienmakler' },
   { value: '§ 34d', label: 'IHK-Erlaubnis Versicherungsmakler' },
-  { value: '15 Min', label: 'Kostenloses Erstgespräch' },
+  { value: '60 Min', label: 'Kostenloses Erstgespräch' },
 ];
 
 const AVATARS = [clientAvatars.okafor, clientAvatars.mueller, clientAvatars.silic];
@@ -134,7 +134,7 @@ export default function HeroSection() {
               </span>
               <div className="flex flex-col gap-0.5">
                 <span className="text-[15px] font-semibold">Erstgespräch</span>
-                <span className="text-[12px] text-stone-subtle">15 Min · kostenlos · online</span>
+                <span className="text-[12px] text-stone-subtle">60 Min · kostenlos · online</span>
               </div>
             </div>
             <a href="#termin" className="btn btn-ink h-10 gap-2 text-[13px]">

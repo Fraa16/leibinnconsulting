@@ -9,7 +9,8 @@ import { cedrikAvatar, windowImage } from '../lib/images';
  * The Calendly scheduling link. While it is unset the card shows the design's
  * mock calendar; set it in the host's environment to switch to the real one.
  */
-const CALENDLY_URL = import.meta.env.VITE_CALENDLY_URL?.trim();
+// Same 60-minute event on every Leibinn site; VITE_CALENDLY_URL overrides it.
+const CALENDLY_URL = import.meta.env.VITE_CALENDLY_URL?.trim() || 'https://calendly.com/beratung-leibinn-consulting/60min';
 
 const POINTS = ['Persönlich mit Cedrik', 'Individuelle Einschätzung', 'Klare nächste Schritte'];
 
@@ -23,7 +24,7 @@ export default function TerminSection() {
             Sprechen wir über <Accent>Ihre Situation.</Accent>
           </h2>
           <p className="t-lead mt-6 text-mist">
-            15 Minuten, kostenlos und unverbindlich. Danach wissen Sie, ob und wie eine Immobilienstrategie für Sie
+            60 Minuten, kostenlos und unverbindlich. Danach wissen Sie, ob und wie eine Immobilienstrategie für Sie
             sinnvoll ist.
           </p>
           <div className="relative mt-9 aspect-[16/10] overflow-hidden rounded-[24px] bg-navy-850">
@@ -59,7 +60,7 @@ export default function TerminSection() {
             <Image image={cedrikAvatar} alt="Cedrik Leibinn" sizes="52px" className="h-[52px] w-[52px] rounded-full object-cover" />
             <div className="flex min-w-[180px] flex-1 flex-col gap-[3px]">
               <span className="text-[17px] font-semibold">Erstgespräch mit Cedrik Leibinn</span>
-              <span className="text-[13px] text-stone-subtle">15 Min · Video oder Telefon · kostenlos</span>
+              <span className="text-[13px] text-stone-subtle">60 Min · Video oder Telefon · kostenlos</span>
             </div>
           </div>
           <div className="my-[22px] h-px bg-line-faint" />
