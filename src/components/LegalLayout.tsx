@@ -24,7 +24,7 @@ export default function LegalLayout({ title, intro, draft = true, children }: Le
         <section className="panel-light">
           <div className="shell max-w-[880px]">
             <p className="eyebrow text-copper-dark">Rechtliches</p>
-            <h1 className="t-h2 mt-6">{title}</h1>
+            <h1 className="t-h2 mt-6 hyphens-manual break-words">{title}</h1>
             {intro && <p className="t-lead mt-6 text-stone">{intro}</p>}
 
             {draft && (

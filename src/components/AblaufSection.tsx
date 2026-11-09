@@ -45,7 +45,7 @@ const STEPS: { title: string; text: string; ui: ReactNode }[] = [
           </div>
         </div>
         <div className="flex flex-wrap gap-1.5 font-mono text-[11px] font-medium">
-          <span className="flex h-[26px] items-center rounded-full bg-copper px-2.5 text-navy-950">15 MIN</span>
+          <span className="flex h-[26px] items-center rounded-full bg-copper px-2.5 text-navy-950">60 MIN</span>
           <span className="flex h-[26px] items-center rounded-full border border-white/16 px-2.5 text-mist">VIDEO</span>
           <span className="flex h-[26px] items-center rounded-full border border-white/16 px-2.5 text-mist">TELEFON</span>
         </div>

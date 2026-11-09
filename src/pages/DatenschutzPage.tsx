@@ -11,7 +11,7 @@ export default function DatenschutzPage() {
 
   return (
     <LegalLayout
-      title="Datenschutzerklärung"
+      title={'Datenschutz\u00ADerklärung' /* soft hyphen: breaks as Datenschutz-erklärung on small phones */}
       intro="Informationen zur Verarbeitung personenbezogener Daten nach Art. 13 und 14 DSGVO."
     >
       <LegalBlock heading="Verantwortlicher">
