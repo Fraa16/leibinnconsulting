@@ -8,6 +8,10 @@
  *   service, and only once their IDs are configured. Nothing else loads.
  * - Conversions: a completed Calendly booking ("booking") and a sent form
  *   ("lead"). Each gets an event ID, so server-side events can be deduplicated.
+ * - calendlyUrl() adds the visitor's campaign (utm_*) and a source tag
+ *   (site + booking event ID) to the Calendly link, so every booking shows
+ *   where it came from. A completed booking is reported to the lead service
+ *   (POST /api/booking), which reads the details from Calendly itself.
  * - Every first consent and every change is logged to the central lead
  *   service (POST /api/consent), once its URL is configured.
  * - Any element with `data-cookie-settings` reopens the settings.
@@ -64,6 +68,21 @@ const newEventId = () =>
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
+/** One ID per page view, shared by the Calendly link and the booking conversion. */
+let bookingEventId: string | undefined;
+const bookingId = () => (bookingEventId ??= newEventId());
+
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
+
+/** Campaign parameter from the landing URL of this visit, or else the current URL. */
+function campaignParam(key: string): string | undefined {
+  const first = new URLSearchParams(landing.search);
+  const now = typeof window === 'undefined' ? new URLSearchParams() : new URLSearchParams(window.location.search);
+  return first.get(key) || now.get(key) || undefined;
+}
+
+const leadsApi = () => value(cfg.leadsApiUrl)?.replace(/\/+$/, '');
+
 function loadScript(src: string) {
   const script = document.createElement('script');
   script.async = true;
@@ -118,10 +137,10 @@ function applyConsent() {
 
 /** Pseudonymous proof of consent: random consent ID, choice, banner revision. No IP, no name. */
 function logConsent(action: 'first' | 'change') {
-  const base = value(cfg.leadsApiUrl);
+  const base = leadsApi();
   if (!base) return;
   const cookie = CookieConsent.getCookie();
-  fetch(`${base.replace(/\/+$/, '')}/api/consent`, {
+  fetch(`${base}/api/consent`, {
     method: 'POST',
     keepalive: true,
     headers: { 'Content-Type': 'application/json' },
@@ -158,10 +177,47 @@ export function openCookieSettings() {
   CookieConsent.showPreferences();
 }
 
+/**
+ * The Calendly link with the visitor's campaign and a source tag. Calendly
+ * hands both back with the booking (utm_* and salesforce_uuid in `tracking`):
+ * `lc:<site>:<booking event ID>`, plus `:m` if marketing consent was given.
+ * Campaign parameters only, never ad click IDs. Call it once when the
+ * calendar is loaded and keep the result (it reads the current consent).
+ */
+export function calendlyUrl(base: string): string {
+  const url = new URL(base);
+  for (const k of UTM_KEYS) {
+    const v = campaignParam(k);
+    if (v && !url.searchParams.has(k)) url.searchParams.set(k, v.slice(0, 200));
+  }
+  if (started) {
+    url.searchParams.set('salesforce_uuid', `lc:${cfg.site}:${bookingId()}${hasMarketingConsent() ? ':m' : ''}`);
+  }
+  return url.toString();
+}
+
+/** Tells the lead service about a booking; it reads name, time and source from Calendly. */
+function reportBooking(invitee: unknown) {
+  const base = leadsApi();
+  if (!base || typeof invitee !== 'string') return;
+  fetch(`${base}/api/booking`, {
+    method: 'POST',
+    keepalive: true,
+    headers: { 'Content-Type': 'application/json' },
+    // site and event ID only count if Calendly's own data carries no source tag.
+    body: JSON.stringify({ invitee, site: cfg.site, eventId: bookingId() }),
+  }).catch(() => {
+    /* The Calendly webhook (if set up) still records it. */
+  });
+}
+
 function onMessage(e: MessageEvent) {
   if (e.origin !== 'https://calendly.com') return;
-  const data = e.data as { event?: string } | null;
-  if (data?.event === 'calendly.event_scheduled') trackConversion('booking');
+  const data = e.data as { event?: string; payload?: { invitee?: { uri?: unknown } } } | null;
+  if (data?.event === 'calendly.event_scheduled') {
+    trackConversion('booking', bookingId());
+    reportBooking(data.payload?.invitee?.uri);
+  }
 }
 
 function onClick(e: MouseEvent) {
@@ -279,12 +335,10 @@ export interface LeadInput {
  * rejects the request, so the form can show its error state.
  */
 export async function submitLead(input: LeadInput): Promise<{ eventId: string }> {
-  const base = value(cfg.leadsApiUrl);
+  const base = leadsApi();
   if (!base) throw new Error('Lead service not configured');
   const eventId = newEventId();
-  const first = new URLSearchParams(landing.search);
-  const now = new URLSearchParams(window.location.search);
-  const param = (k: string) => first.get(k) || now.get(k) || undefined;
+  const param = campaignParam;
   const marketing = hasMarketingConsent();
   const attribution: Record<string, string | undefined> = {
     page_url: window.location.origin + window.location.pathname,
@@ -299,7 +353,7 @@ export async function submitLead(input: LeadInput): Promise<{ eventId: string }>
     li_fat_id: marketing ? param('li_fat_id') : undefined,
     gclid: marketing ? param('gclid') : undefined,
   };
-  const res = await fetch(`${base.replace(/\/+$/, '')}/api/lead`, {
+  const res = await fetch(`${base}/api/lead`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

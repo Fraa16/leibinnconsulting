@@ -51,6 +51,9 @@ node scripts/shoot-section.mjs out/ 1440 "#rechner" "#faq=faq"
    every Leibinn site) behind a click-to-load consent step; nothing is requested
    from Calendly before the click. `VITE_CALENDLY_URL` can override it. Styling is
    passed as URL parameters (copper `B8875A`, ink `0D1A2D`, white background).
+   The link also carries the visitor's campaign (`utm_*`) and a source tag, and a
+   completed booking is reported to the lead service, so it appears in the lead
+   overview with "LP3" and its campaign.
 2. **Tax adviser sign-off** on the calculator model (`src/lib/calculator.ts`)
    and every figure that comes from it (hero card, Rechner, Ablauf step 03).
    The model is implemented exactly as the design handoff specifies; the
