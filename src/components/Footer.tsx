@@ -44,6 +44,9 @@ export default function Footer() {
               <Link to="/datenschutz" className="text-mist-strong">
                 Datenschutz
               </Link>
+              <button type="button" data-cookie-settings className="text-left text-mist-strong">
+                Cookie-Einstellungen
+              </button>
             </nav>
           </div>
         </div>

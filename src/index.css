@@ -286,3 +286,39 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Cookie banner (vanilla-cookieconsent) as a light panel in lp3's tokens. */
+#cc-main {
+  --cc-font-family: 'Host Grotesk Variable', 'Host Grotesk', system-ui, sans-serif;
+  --cc-bg: #ffffff;
+  --cc-primary-color: #0d1a2d;
+  --cc-secondary-color: #4a5261;
+  --cc-btn-primary-bg: #b8875a;
+  --cc-btn-primary-color: #08111f;
+  --cc-btn-primary-border-color: #b8875a;
+  --cc-btn-primary-hover-bg: #d6ae84;
+  --cc-btn-primary-hover-color: #08111f;
+  --cc-btn-primary-hover-border-color: #d6ae84;
+  --cc-btn-secondary-bg: #f4f2ed;
+  --cc-btn-secondary-color: #0d1a2d;
+  --cc-btn-secondary-border-color: #ddd8ce;
+  --cc-btn-secondary-hover-bg: #ece8e1;
+  --cc-btn-secondary-hover-color: #0d1a2d;
+  --cc-btn-secondary-hover-border-color: #ddd8ce;
+  --cc-btn-border-radius: 999px;
+  --cc-modal-border-radius: 20px;
+  --cc-separator-border-color: #e6e1d8;
+  --cc-toggle-on-bg: #b8875a;
+  --cc-toggle-off-bg: #8c919a;
+  --cc-toggle-readonly-bg: #ddd8ce;
+  --cc-cookie-category-block-bg: #f4f2ed;
+  --cc-cookie-category-block-border: #e6e1d8;
+  --cc-cookie-category-block-hover-bg: #ece8e1;
+  --cc-cookie-category-block-hover-border: #ddd8ce;
+  --cc-cookie-category-expanded-block-bg: #ffffff;
+  --cc-footer-bg: #f4f2ed;
+  --cc-footer-color: #4a5261;
+  --cc-footer-border-color: #e6e1d8;
+  --cc-link-color: #8a5e36;
+  --cc-overlay-bg: rgba(8, 17, 31, 0.6);
+}

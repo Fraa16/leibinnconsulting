@@ -84,6 +84,14 @@ card in `#termin` is now the single path. The unused Supabase, framer-motion
 and lucide-react dependencies are gone. `/impressum` and `/datenschutz`, which
 the old footer linked to but which did not exist, are now real routes.
 
+**Tracking and consent.** Statistics run on Vercel Web Analytics without cookies.
+The cookie banner (`src/lib/consent.ts`, the same file on every Leibinn site) loads
+Meta Pixel and LinkedIn Insight Tag only after consent and only once their IDs are
+set (`VITE_META_PIXEL_ID`, `VITE_LINKEDIN_PARTNER_ID`, `VITE_LINKEDIN_CONVERSION_LEAD`,
+`VITE_LINKEDIN_CONVERSION_BOOKING`). A completed Calendly booking counts as a
+conversion. Consent records go to the central lead service
+([Fraa16/leibinn-leads](https://github.com/Fraa16/leibinn-leads), `VITE_LEADS_API_URL`).
+
 ---
 
 ## Structure

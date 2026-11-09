@@ -20,9 +20,11 @@
   "dependencies": {
     "@fontsource-variable/host-grotesk": "^5.3.0",
     "@fontsource/geist-mono": "^5.3.0",
+    "@vercel/analytics": "2.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.9.6"
+    "react-router-dom": "^7.9.6",
+    "vanilla-cookieconsent": "3.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
