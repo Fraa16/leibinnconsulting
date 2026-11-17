@@ -67,9 +67,11 @@ node scripts/shoot-section.mjs out/ 1440 "#rechner" "#faq=faq"
    third-party embeds. Confirm in writing that the three clients agreed to be
    quoted with name, role and photo.
 5. **Datenschutz.** The Impressum is copied 1:1 from the main website (all
-   Leibinn sites share it). The Datenschutz page is still scaffolding: it gets
-   aligned with the main site's text once the shared services are decided, then
-   needs a lawyer's review.
+   Leibinn sites share it). `/datenschutz` renders the shared privacy policy, `src/lib/privacy.ts`, the same file on every
+   Leibinn site (like `consent.ts`): change it in one repo, copy it to the others.
+   The page only says which features the site has; Google Analytics 4 and Google
+   Ads sections appear once their IDs are set, as in the cookie banner. Have the
+   text reviewed by a lawyer before the ads start.
 6. **Image licence.** `ffm-towers.jpg` (Situation section) is from Unsplash.
    Check the licence and whether a credit is wanted.
 7. **Production domain.** `https://leibinn-consulting.de` is assumed in

@@ -16,6 +16,10 @@ initConsent({
   linkedinPartnerId: import.meta.env.VITE_LINKEDIN_PARTNER_ID,
   linkedinConversionLead: import.meta.env.VITE_LINKEDIN_CONVERSION_LEAD,
   linkedinConversionBooking: import.meta.env.VITE_LINKEDIN_CONVERSION_BOOKING,
+  ga4Id: import.meta.env.VITE_GA4_ID,
+  googleAdsId: import.meta.env.VITE_GOOGLE_ADS_ID,
+  googleAdsLabelLead: import.meta.env.VITE_GOOGLE_ADS_LABEL_LEAD,
+  googleAdsLabelBooking: import.meta.env.VITE_GOOGLE_ADS_LABEL_BOOKING,
   leadsApiUrl: import.meta.env.VITE_LEADS_API_URL,
 });
 

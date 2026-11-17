@@ -6,6 +6,12 @@
  *   "Nur notwendige" with equal weight. Consent is valid for 6 months.
  * - Meta Pixel and LinkedIn Insight Tag load only after consent for that
  *   service, and only once their IDs are configured. Nothing else loads.
+ * - Optional Google services, each switched on by setting its ID: Google
+ *   Analytics 4 (own banner category "Statistik") and Google Ads conversion
+ *   tracking (in "Marketing"). Without an ID they do not appear in the banner
+ *   at all. With one, gtag.js loads only after consent (Consent Mode v2,
+ *   everything denied by default), and the banner revision changes, so every
+ *   visitor is asked again.
  * - Conversions: a completed Calendly booking ("booking") and a sent form
  *   ("lead"). Each gets an event ID, so server-side events can be deduplicated.
  * - calendlyUrl() adds the visitor's campaign (utm_*) and a source tag
@@ -32,6 +38,12 @@ export interface ConsentConfig {
   linkedinPartnerId?: string;
   linkedinConversionLead?: string;
   linkedinConversionBooking?: string;
+  /** Google Analytics 4 measurement ID (G-…). */
+  ga4Id?: string;
+  /** Google Ads tag ID (AW-…) and the conversion labels for a sent form and a booking. */
+  googleAdsId?: string;
+  googleAdsLabelLead?: string;
+  googleAdsLabelBooking?: string;
   /** Base URL of the central lead service, e.g. https://leads.leibinn-consulting.de */
   leadsApiUrl?: string;
 }
@@ -52,6 +64,8 @@ declare global {
     lintrk?: Lintrk;
     _linkedin_partner_id?: string;
     _linkedin_data_partner_ids?: string[];
+    dataLayer?: unknown[];
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -59,7 +73,7 @@ let cfg: ConsentConfig = { site: 'main' };
 let started = false;
 /** URL and referrer of the first page of this visit (in memory, survives in-site navigation). */
 let landing = { search: '', referrer: '' };
-const loaded = { meta: false, linkedin: false };
+const loaded = { meta: false, linkedin: false, gtag: false, ga4: false, ads: false };
 
 const value = (v?: string) => (v ?? '').trim() || undefined;
 
@@ -130,9 +144,59 @@ function loadLinkedIn() {
   loadScript('https://snap.licdn.com/li.lms-analytics/insight.min.js');
 }
 
+/** gtag.js with Google Consent Mode v2: everything denied until the visitor agrees. */
+function gtagBase() {
+  if (window.gtag) return;
+  window.dataLayer = window.dataLayer ?? [];
+  window.gtag = function gtag() {
+    // gtag.js expects the arguments object itself, not an array.
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer!.push(arguments);
+  };
+  window.gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+  });
+  window.gtag('js', new Date());
+}
+
+/** Loads Google Analytics 4 and/or Google Ads, each only if configured and consented to. */
+function loadGoogle(analytics: boolean, ads: boolean) {
+  const ga4 = analytics ? value(cfg.ga4Id) : undefined;
+  const aw = ads ? value(cfg.googleAdsId) : undefined;
+  if (!ga4 && !aw) return;
+  gtagBase();
+  const ga = Boolean(ga4) || loaded.ga4;
+  const ad = Boolean(aw) || loaded.ads;
+  window.gtag!('consent', 'update', {
+    analytics_storage: ga ? 'granted' : 'denied',
+    ad_storage: ad ? 'granted' : 'denied',
+    ad_user_data: ad ? 'granted' : 'denied',
+    ad_personalization: ad ? 'granted' : 'denied',
+  });
+  if (!loaded.gtag) {
+    loaded.gtag = true;
+    loadScript(`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent((ga4 ?? aw)!)}`);
+  }
+  if (ga4 && !loaded.ga4) {
+    loaded.ga4 = true;
+    window.gtag!('config', ga4);
+  }
+  if (aw && !loaded.ads) {
+    loaded.ads = true;
+    window.gtag!('config', aw);
+  }
+}
+
 function applyConsent() {
   if (CookieConsent.acceptedService('meta', 'marketing')) loadMeta();
   if (CookieConsent.acceptedService('linkedin', 'marketing')) loadLinkedIn();
+  loadGoogle(
+    CookieConsent.acceptedService('google_analytics', 'analytics'),
+    CookieConsent.acceptedService('google_ads', 'marketing')
+  );
 }
 
 /** Pseudonymous proof of consent: random consent ID, choice, banner revision. No IP, no name. */
@@ -166,6 +230,14 @@ export function trackConversion(kind: ConversionKind, eventId: string = newEvent
   const conversionId = value(kind === 'booking' ? cfg.linkedinConversionBooking : cfg.linkedinConversionLead);
   if (loaded.linkedin && conversionId && window.lintrk) {
     window.lintrk('track', { conversion_id: Number(conversionId), event_id: eventId });
+  }
+  if (loaded.ga4 && window.gtag) {
+    window.gtag('event', kind === 'booking' ? 'book_appointment' : 'generate_lead', { event_id: eventId });
+  }
+  const adsId = value(cfg.googleAdsId);
+  const adsLabel = value(kind === 'booking' ? cfg.googleAdsLabelBooking : cfg.googleAdsLabelLead);
+  if (loaded.ads && adsId && adsLabel && window.gtag) {
+    window.gtag('event', 'conversion', { send_to: `${adsId}/${adsLabel}`, transaction_id: eventId });
   }
   return eventId;
 }
@@ -239,8 +311,14 @@ export function initConsent(config: ConsentConfig) {
   window.addEventListener('message', onMessage);
   document.addEventListener('click', onClick);
 
+  // Optional Google services appear only once their IDs are set.
+  const ga4 = Boolean(value(config.ga4Id));
+  const ads = Boolean(value(config.googleAdsId));
+  const adNames = ads ? 'Meta, LinkedIn und Google' : 'Meta und LinkedIn';
+
   void CookieConsent.run({
-    revision: 1,
+    // A new service changes the revision, so everyone is asked again.
+    revision: 1 + (ga4 ? 1 : 0) + (ads ? 2 : 0),
     cookie: { name: 'lc_consent', expiresAfterDays: 182, sameSite: 'Lax' },
     guiOptions: {
       consentModal: { layout: 'box', position: 'bottom left', equalWeightButtons: true, flipButtons: false },
@@ -254,11 +332,23 @@ export function initConsent(config: ConsentConfig) {
     },
     categories: {
       necessary: { enabled: true, readOnly: true },
+      ...(ga4
+        ? {
+            analytics: {
+              autoClear: { cookies: [{ name: /^_ga/ }], reloadPage: true },
+              services: { google_analytics: { label: 'Google Analytics 4 (Google Ireland Ltd.)' } },
+            },
+          }
+        : {}),
       marketing: {
-        autoClear: { cookies: [{ name: /^_fb/ }, { name: /^li_/ }], reloadPage: true },
+        autoClear: {
+          cookies: [{ name: /^_fb/ }, { name: /^li_/ }, ...(ads ? [{ name: /^_gcl/ }] : [])],
+          reloadPage: true,
+        },
         services: {
           meta: { label: 'Meta Pixel (Meta Platforms Ireland Ltd.)' },
           linkedin: { label: 'LinkedIn Insight Tag (LinkedIn Ireland Unlimited Company)' },
+          ...(ads ? { google_ads: { label: 'Google Ads Conversion-Tracking (Google Ireland Ltd.)' } } : {}),
         },
       },
     },
@@ -269,7 +359,7 @@ export function initConsent(config: ConsentConfig) {
           consentModal: {
             title: 'Ihre Privatsphäre',
             description:
-              'Wir verwenden technisch notwendige Speicherungen, damit diese Website funktioniert. Mit Ihrer Einwilligung nutzen wir zusätzlich Marketing-Dienste von Meta und LinkedIn, um die Wirkung unserer Anzeigen zu messen. Dabei können Daten auch in die USA übertragen werden. Ihre Auswahl können Sie jederzeit über „Cookie-Einstellungen“ am Seitenende ändern.',
+              `Wir verwenden technisch notwendige Speicherungen, damit diese Website funktioniert. Mit Ihrer Einwilligung nutzen wir zusätzlich ${ga4 ? 'Google Analytics, um die Nutzung der Website auszuwerten, und ' : ''}Marketing-Dienste von ${adNames}, um die Wirkung unserer Anzeigen zu messen. Dabei können Daten auch in die USA übertragen werden. Ihre Auswahl können Sie jederzeit über „Cookie-Einstellungen“ am Seitenende ändern.`,
             acceptAllBtn: 'Alle akzeptieren',
             acceptNecessaryBtn: 'Nur notwendige',
             showPreferencesBtn: 'Einstellungen',
@@ -294,10 +384,19 @@ export function initConsent(config: ConsentConfig) {
                   'Speichert Ihre Auswahl in diesem Dialog. Ohne diese Speicherung kann die Website Ihre Entscheidung nicht berücksichtigen.',
                 linkedCategory: 'necessary',
               },
+              ...(ga4
+                ? [
+                    {
+                      title: 'Statistik',
+                      description:
+                        'Google Analytics 4 wertet aus, wie unsere Website genutzt wird, etwa welche Seiten aufgerufen werden. Dazu werden Cookies gesetzt und Daten an Google übermittelt, auch in die USA.',
+                      linkedCategory: 'analytics',
+                    },
+                  ]
+                : []),
               {
                 title: 'Marketing',
-                description:
-                  'Meta Pixel und LinkedIn Insight Tag messen, ob Besucher über unsere Anzeigen kommen und anschließend einen Termin buchen oder eine Anfrage senden. Dazu werden Cookies gesetzt und Daten an Meta und LinkedIn übermittelt, auch in die USA.',
+                description: `${ads ? 'Meta Pixel, LinkedIn Insight Tag und Google Ads messen' : 'Meta Pixel und LinkedIn Insight Tag messen'}, ob Besucher über unsere Anzeigen kommen und anschließend einen Termin buchen oder eine Anfrage senden. Dazu werden Cookies gesetzt und Daten an ${adNames} übermittelt, auch in die USA.`,
                 linkedCategory: 'marketing',
               },
               {
